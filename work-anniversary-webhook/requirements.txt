@@ -1,0 +1,5 @@
+gspread
+httplib2
+google-api-python-client
+google-auth
+google-cloud-secret-manager
