@@ -1,0 +1,133 @@
+version: 2
+
+sources:
+  - name: aditi_finance
+    tables:
+      - name: bank-statements
+        columns:
+          - name: date
+            tests:
+              - not_null
+          - name: narration
+            tests:
+              - not_null
+          - name: withdrawal_amt
+            description: The amount withdrawn
+          - name: deposit_amt
+            description: The amount deposited
+          - name: closing_balance
+            description: The balance after the transaction occurred
+
+      - name: category_lookup
+        columns:
+          - name: keyword
+            tests:
+              - unique
+              - not_null
+          - name: category
+            tests:
+              - not_null
+
+models:
+  - name: categorized_transactions
+    description: This table contains the categorized bank transactions
+    columns:
+      - name: Date
+        description: The date of the transaction
+      - name: Narration
+        description: The narration of the transaction
+      - name: Withdrawal_Amt
+        description: The withdrawal amount
+      - name: Deposit_Amt
+        description: The deposit amount
+      - name: Closing_Balance
+        description: The closing balance
+      - name: transaction_type
+        description: The type of transaction (Debit or Credit)
+      - name: Category
+        description: The category of the transaction
+
+  - name: monthly_summary
+    description: This table provides a monthly summary of withdrawals and deposits by category
+    columns:
+      - name: Month
+        description: The month of the transaction
+      - name: Category
+        description: The category of the transaction
+      - name: Total_Withdrawal
+        description: The total withdrawal amount for the month in each category
+      - name: Total_Deposit
+        description: The total deposit amount for the month in each category
+
+  - name: yearly_summary
+    materialized: view
+    description: This view represents the yearly summary
+    columns:
+      - name: Year
+        description: Year of transaction
+      - name: Category
+        description: The category of the transaction
+      - name: Total_Withdrawal
+        description: The total withdrawal amount in a year
+      - name: Total_Deposit
+        description: The total deposit amount in a year
+
+  - name: category_trends
+    materialized: view
+    description: This view represents category trends
+    columns:
+      - name: category
+        description: Transaction category.
+      - name: Month
+        description: Month of the transaction, extracted from the transaction date.
+      - name: Year
+        description: Year of the transaction, extracted from the transaction date.
+      - name: Total_Withdrawal
+        description: Total withdrawal amount for the given category, month, and year.
+      - name: Total_Deposit
+        description: Total deposit amount for the given category, month, and year.
+
+  - name: closing_balance_today
+    description: Latest closing balance based on the transaction_date. If the current date's transaction is not present, it will take the last available date's closing balance.
+    columns:
+      - name: transaction_date
+        description: The date of the transaction
+        tests:
+          - not_null
+          - unique
+      - name: closing_balance
+        description: The closing balance on the transaction_date
+        tests:
+          - not_null
+
+  - name: latest_five_transactions
+    description: This table contains the five most recent transactions from the categorized_transactions table
+    columns:
+      - name: transaction_date
+        description: The date of the transaction
+        tests:
+          - not_null
+      - name: narration
+        description: Description of the transaction
+        tests:
+          - not_null
+      - name: transaction_amt
+        description: Withdrawal amount for debit transactions and deposit amount for credit transactions
+        tests:
+          - not_null
+      - name: transaction_type
+        description: The type of the transaction (Debit/Credit)
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Debit', 'Credit']
+      - name: category
+        description: The category of the transaction
+        tests:
+          - not_null
+
+  
+
+  
+
+    
