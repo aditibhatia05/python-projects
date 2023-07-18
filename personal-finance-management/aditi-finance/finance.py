@@ -10,7 +10,7 @@ from google.api_core.exceptions import NotFound
 import pyarrow
 from datetime import datetime
 
-folder_A_id = '1wOcHg0xO5ABV9pt_4RrHbPNNdWOZF-Hg'
+folder_A_id = '1wOcHg0xO5ABV9pt_4RrHbP'
 target_bucket_name = 'aditi-finance-raw'
 gcs_folder_name = 'finance'
 gcs_file_name = 'file_list.txt'
