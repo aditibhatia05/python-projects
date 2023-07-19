@@ -1,0 +1,7 @@
+gspread
+google-auth
+google-api-python-client
+requests
+google-cloud-secret-manager
+google-cloud-aiplatform
+sib-api-v3-sdk
