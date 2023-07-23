@@ -1,4 +1,4 @@
-# server.py
+# launcher.py
 
 from flask import Flask, request
 import os
@@ -13,7 +13,7 @@ def run_script():
 
     if job_name.endswith('main_daily'):
         subprocess.run(['python', 'main_daily.py'])
-    elif job_name.endswith('main_onthly'):
+    elif job_name.endswith('main_monthly'):
         subprocess.run(['python', 'main_monthly.py'])
     else:
         return 'Invalid job name. Job name must end with either "daily" or "monthly".', 400
