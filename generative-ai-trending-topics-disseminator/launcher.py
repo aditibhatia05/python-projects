@@ -3,13 +3,17 @@
 from flask import Flask, request
 import os
 import subprocess
+import logging
 
 app = Flask(__name__)
+logging.basicConfig(level=logging.INFO)
 
 @app.route('/run-script', methods=['POST'])
 def run_script():
     # extract job name from headers
-    job_name = request.headers.get('X-CloudScheduler-JobName', '')
+    job_name = request.headers.get('X-MyScript-Name', '')
+    logging.info(f'Received request for job: {job_name}')
+
 
     if job_name.endswith('main_daily'):
         subprocess.run(['python', 'main_daily.py'])
