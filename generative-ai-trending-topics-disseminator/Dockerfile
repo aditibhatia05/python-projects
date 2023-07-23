@@ -12,4 +12,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 
 # Run launcher.py when the container launches
-CMD ["python", "launcher.py"]
+CMD ["python", "server.py"]

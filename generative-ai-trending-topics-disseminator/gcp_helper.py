@@ -8,7 +8,7 @@ from requests.exceptions import HTTPError
 import random
 from google.cloud import secretmanager
 
-PROJECT_NO = <Your Project Number>
+PROJECT_NO = 983346229653
 
 def get_gsheet_credentials(google_sheet_name):
     credentials, _ = google.auth.default(
