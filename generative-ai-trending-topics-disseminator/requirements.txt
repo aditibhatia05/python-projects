@@ -5,3 +5,4 @@ requests
 google-cloud-secret-manager
 google-cloud-aiplatform
 sib-api-v3-sdk
+flask
